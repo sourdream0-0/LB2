@@ -1,0 +1,62 @@
+package MyClass;
+import javax.swing.JFrame;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import java.awt.GridLayout;
+import java.awt.event.*;
+public class MainClass{
+
+    public static void main(String[] args){
+
+        JFrame frame = new JFrame();
+        frame.setLayout(new GridLayout(6,0));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(200,500);
+        frame.setLocation(500,500);
+        frame.setTitle("Заявка в группу");
+        frame.setVisible(true);
+
+        
+        final JComboBox select = new JComboBox<String>(new String[] {"Гитара", "Фортепиано", "Барабаны", "Бас", "Вокал"});
+        frame.add(select);
+        
+        final JRadioButton bandexp = new JRadioButton("Есть опыт игры в группе");
+        frame.add(bandexp);
+        
+        final JTextField playexp = new JTextField("Сколько лет опыта игры/пения?");
+        frame.add(playexp);
+        
+        final JCheckBox owninstr = new JCheckBox("Есть свой инструмент");
+        frame.add(owninstr);
+        
+        final JButton endbutton = new JButton("Отправить");
+        frame.add(endbutton);
+        
+        final JTextField resultfield= new JTextField("Результат");
+        
+        endbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+                float result = 0;
+                
+                float years = Float.parseFloat(playexp.getText());
+                if (select.getSelectedItem().equals("Гитара")) result+=5+years;
+                else if(select.getSelectedItem().equals("Фортепиано")) result+=10+years;
+                else if(select.getSelectedItem().equals("Барабаны")) result+=15+years;
+                else if(select.getSelectedItem().equals("Бас")) result+=20+years;
+                else if(select.getSelectedItem().equals("Вокал")) result+=years;
+                if (bandexp.isSelected()) result+=15+years;
+                if (owninstr.isSelected()) result+=10+years;
+                
+                frame.add(resultfield);
+                resultfield.setText(String.valueOf(result));
+            }
+        });
+    }
+
+}
+
